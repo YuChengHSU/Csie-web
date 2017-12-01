@@ -1,0 +1,473 @@
+<!--
+  Copyright (c) 2011 Google Inc.
+  Licensed under the Apache License, Version 2.0 (the "License"); you may not
+  use this file except in compliance with the License. You may obtain a copy of
+  the License at
+  http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+  WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+  License for the specific language governing permissions and limitations under
+  the License.
+  To run this sample, set apiKey to your application's API key and clientId to
+  your application's OAuth 2.0 client ID. They can be generated at:
+    https://console.developers.google.com/apis/credentials?project=_
+  Then, add a JavaScript origin to the client that corresponds to the domain
+  where you will be running the script. Finally, activate the People API at:
+    https://console.developers.google.com/apis/library?project=_
+-->
+<!DOCTYPE html>
+<html lang="English">
+  <meta name="black">
+  <head>
+    <title>CSIE step count collection</title>
+    <meta charset='utf-8' />
+    <script src="echarts.min.js"></script>
+    <script src="moment.min.js"></script>
+    <script src="excellentexport.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>  
+    <script>
+    function scroll2(pos){
+        var move = document.getElementById(pos).getBoundingClientRect().top;
+        var step =Math.abs(move);
+        var i=0;
+        var moving=setInterval(function(){scrollBy(0,move*Math.sin(i*Math.PI/48)/30.54);i++;if(i>48){i=0;clearInterval(moving);}},20.83);
+    }
+    </script>
+    <style>
+      *{font-family: Arial;}
+    p,h2,table{
+      text-align: center;
+      color:white;
+      }  
+    h1{ 
+      font-family:"Times New Roman";
+      font-size: 32pt;
+      letter-spacing:3px;
+      margin:0px;
+      padding-top: 10%;
+      color: white;
+      text-align: center;
+      }
+    .bdiv{
+      -webkit-box-align:center;
+      -webkit-box-pack:center;
+      display:-webkit-box;
+    }
+    a.button {
+    font-size: 18px;
+    letter-spacing:0.5px;
+    margin-left:20px;
+    text-decoration: none;
+    border-style: solid;
+    color: white;
+    padding: 5px
+    }
+    a.button:visited {
+    color: white;
+      }
+    a.cite:visited {
+    color: white;
+      }
+    input{
+      -webkit-box-align:center;
+      -webkit-box-pack:center;
+      display:-webkit-box;
+    }
+    p.button{
+      font-size: 18px;
+    letter-spacing:0.5px;
+    border-style: solid;
+    color: white;
+    padding: 5px
+    }
+    .button:hover {
+    border-color: white;
+    background-color: white;
+    color: black;
+    }
+    a.button:hover {
+    border-color: white;
+    background-color: white;
+    color: black;
+    }
+    #log{
+      margin-left:0px;
+    }
+    .tabular{
+      margin-top: 20px;
+    }
+    caption{
+      font-size: 1.5em;
+      margin-top: 0.83em;
+      margin-bottom: 0.83em;
+      text-align: center;
+      font-weight: bold;
+    }  
+    </style>
+    <!--For scrolling  -->
+    <style>
+
+      .scroll:visited{
+        color: white;
+      }
+      #scroll{
+      right:50px;
+      position:fixed;
+      bottom: 27%;
+      width: 5%;
+      height:50%;
+      z-index: 2;
+      background-color: none;
+      }
+      a.scroll {
+        text-decoration: none;
+        padding-top: 80px;
+      }
+      a.scroll span.down {
+        left:0px;
+        position: absolute;
+        top: 0;
+        width: 24px;
+        height: 24px;
+        margin-left: -12px;
+        border-left: 1px solid #ffffff;
+        border-bottom: 1px solid #ffffff;
+        -webkit-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+        -webkit-animation: sdb 2s infinite;
+        animation: sdb 2s infinite;
+        opacity: 0;
+        box-sizing: border-box;
+      }
+      a.scroll span.down:nth-of-type(1) {
+        top:92.5%;
+        -webkit-animation-delay: 0s;
+        animation-delay: 0s;
+      }
+      a.scroll span.down:nth-of-type(2) {
+        top: 94%;
+        -webkit-animation-delay: .15s;
+        animation-delay: .15s;
+      }
+      a.scroll span.down:nth-of-type(3) {
+        top: 95.5%  ;
+        -webkit-animation-delay: .3s;
+        animation-delay: .3s;
+      }
+      a.scroll span.top {
+        left:0px;
+        position: absolute;
+        top: 0;
+        width: 24px;
+        height: 24px;
+        margin-left: -12px;
+        border-top: 1px solid #ffffff;
+        border-right: 1px solid #ffffff;
+        -webkit-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+        -webkit-animation: sdb 2s infinite;
+        animation: sdb 2s infinite;
+        opacity: 0;
+        box-sizing: border-box;
+      }
+      a.scroll span.top:nth-of-type(1) {
+        top:5.5%;
+        -webkit-animation-delay: 0s;
+        animation-delay: 0s;
+      }
+      a.scroll span.top:nth-of-type(2) {
+        top: 4%;
+        -webkit-animation-delay: .15s;
+        animation-delay: .15s;
+      }
+      a.scroll span.top:nth-of-type(3) {
+        top: 2.5%  ;
+        -webkit-animation-delay: .3s;
+        animation-delay: .3s;
+      }
+      @-webkit-keyframes sdb {
+        0% {
+          opacity: 0;
+        }
+        50% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+      @keyframes sdb {
+        0% {
+          opacity: 0;
+        }
+        50% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+      .ind{
+        text-decoration: none;
+        color: white;
+        position: absolute;
+        left  :0px;
+        top:7%;
+      }
+      #scroll a.ind:nth-of-type(2) {
+        color: white;
+        top: 25%;
+        }
+      #scroll a.ind:nth-of-type(3) {
+        color: white;
+        top: 50%;
+        }
+      #scroll a.ind:nth-of-type(4) {
+        color: white;
+        top: 75%;
+        }
+    </style>
+    <style>
+      #main{
+        z-index: 0;
+        top:0px;
+        background-image: url("IMG_583265.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        width:100%;
+        height:100vh;
+      }
+      .tabular{ 
+      overflow: scroll;
+      overflow-x: hidden;
+      margin:0px;
+      z-index: 0;
+      background-image: url("desktop-wallpaper-8.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      width:100%;
+      height:100vh;}
+      table{margin-bottom: 5%;
+        margin-top: 5%;}
+    </style>   
+    <!--Scrolling style-->
+    <style> 
+     .tabular::-webkit-scrollbar {
+      position: relative;
+      width: 50px;
+      height: 50px;
+      }   
+
+     ::-webkit-scrollbar-track{
+      background: none;
+      } 
+
+     ::-webkit-scrollbar-thumb {
+      background: rgba(256,256,256,0.3);
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(1,1,1,0.3);
+      }
+    </style>
+    <!--Calendar-->
+    <style> 
+      input[type=date] {
+        background:none;
+        text-decoration: bold;
+        text-align: center;
+        border:none;
+        color: white;
+        font-family: Arial;
+        font-size: 15px;
+      }
+      input[type="date"]::-webkit-calendar-picker-indicator {
+        color: white;
+        opacity: 1;
+        background: none;
+        z-index: 1;
+        }
+       ::-webkit-inner-spin-button {
+         background-image: none;
+         background: none;
+         opacity: 1;
+          color: white;
+         }
+        input[type=date]:focus {
+        font-family: Arial, Helvetica, sans-serif;
+        text-decoration: bold;
+        background:white;
+        text-align: center;
+        border:none;
+        color: black;
+        font-family: Arial;
+        font-size: 15px;
+      }
+     </style>
+     <style>
+     #foot{
+      column-count: 2;
+      width:100%;
+      height:150px;
+      background: black;
+     }
+     #foot > p{
+       font-size: 16px;
+       margin:0px;
+       padding-top: 50px;
+       padding-left: 10px;
+       padding-right: 10px;
+     }
+     </style>
+  </head>
+  <body>
+    <div id="main" class="page">
+    <h1>Centre of System Informatic Engineering</h1>
+    <p>Pilot Study 3 data collection web</p>
+    <div class="bdiv"><a href="fitbitLogin.html" class="button" id="log">Login to Fitbit</a></div></br>
+    <div class="bdiv">Start date (Only for Sleep)<input type="date" name="bday" id="setd" value="" class="bdiv"></div>
+    <div class="bdiv">End date (for All)<input type="date" name="bday" id="std" value="" class="bdiv"></div>
+    <div class="bdiv"><p onclick="search()" class="button">Collect</p></div>
+    <div class="bdiv"><h2 id="aca"></h2></div>
+    <div class="bdiv"> 
+    <a download="Step_Count.csv" href="#" onclick="return ExcellentExport.csv(this, 'summary');" id="sdown" class="button">Export Step Count to csv</a>
+    <a download="Heart_Rate.csv" href="#" onclick="return ExcellentExport.csv(this, 'heart');" id="hdown" class="button">Export heart beat to csv</a>
+    <a download="Sleep.csv" href="#" onclick="return ExcellentExport.csv(this, 'sleep');" id="sldown" class="button">Export Sleeping data to csv</a>
+    </div>
+    </div>
+    <div id="scroll"><a class="scroll" onclick="scroll2('main')"><span class="top"></span><span class="top"></span><span class="top"></span></a><a class="ind" onclick="scroll2('stable')">Step</a><a class="ind" onclick="scroll2('htable')">Heart rate</a><a class="ind" onclick="scroll2('sltable')">Sleep</a><a class="scroll" onclick="scroll2('foot')"><span class="down"></span><span class="down" ></span><span class="down"></span></a></div>
+    <script>
+        // get the url 
+        var url = window.location.href;
+        //getting the access token from url
+        toaday=new Date();
+        try{
+          var access_token = url.split("#")[1].split("=")[1].split("&")[0];
+          document.cookie = "access_token="+access_token;
+          document.getElementById("setd").value=moment(toaday).format("YYYY-MM-DD");
+          document.getElementById("std").value=moment(toaday).format("YYYY-MM-DD");
+        }
+        catch(err){
+          access_token=document.cookie.split("=")[1];
+          document.getElementById("setd").value=moment(toaday).format("YYYY-MM-DD");
+          document.getElementById("std").value=moment(toaday).format("YYYY-MM-DD");
+        }
+        function search(){
+        var data;
+    $.ajax({
+        type: 'GET',
+        beforeSend: function(request) {
+             request.setRequestHeader("Authorization", 'Bearer ' + access_token);
+            },
+    url: "https://api.fitbit.com/1/user/-/activities/heart/date/"+document.getElementById("std").value.toString()+"/"+document.getElementById("std").value.toString()+"/1min/time/00%3A00/23%3A59.json",
+    success:function(data, status, xhr){
+        var obj = JSON.stringify(data);
+       obj = JSON.parse(obj);
+       document.getElementById("htable").innerHTML="<table style='width:100%' id='heart' align='center'><caption>Heart rate</caption><tr align='center'><th>Time</th><th>Heart beats</th></tr></table>";
+       for(var i=0;i<obj['activities-heart-intraday']['dataset'].length;i++){ 
+        var table = document.getElementById("heart");
+            var row = table.insertRow(i+1);
+            var ti = row.insertCell(0);
+            var hb = row.insertCell(1);
+            row.align='center';
+            ti.innerHTML=document.getElementById("std").value.toString()+" "+obj['activities-heart-intraday']['dataset'][i]['time'];
+            hb.innerHTML=obj['activities-heart-intraday']['dataset'][i]['value'];
+       }
+    }
+        });
+        var data;
+    $.ajax({
+        type: 'GET',
+        beforeSend: function(request) {
+             request.setRequestHeader("Authorization", 'Bearer ' + access_token);
+            },
+    url: "https://api.fitbit.com/1/user/-/activities/steps/date/"+document.getElementById("std").value.toString()+"/1d/15min/time/00%3A00/23%3A45.json",
+    success:function(data, status, xhr){
+      console.log(data);
+      var obj = JSON.stringify(data);
+       obj = JSON.parse(obj);
+       var pev=0;
+       document.getElementById("stable").innerHTML="  <table style='width:100%' id='summary' align='center'><tr align='center'><caption>Step Count</caption><th>Start</th><th>End</th> <th>Steps</th><th>Cum_steps</th></tr></table>";
+       for(var i=0;i<obj['activities-steps-intraday']['dataset'].length;i++){
+        var table = document.getElementById("summary");
+        var row = table.insertRow(i+2);
+        var st = row.insertCell(0);
+        var ed = row.insertCell(1);
+        var steps=row.insertCell(2);
+        var cumstep=row.insertCell(3);
+        row.align='center';
+        cumstep.id="cumstep"+i;
+        steps.id="steps"+i;
+        st.innerHTML = document.getElementById("std").value.toString()+" "+obj['activities-steps-intraday']['dataset'][i]['time'];
+        if(i+1<obj['activities-steps-intraday']['dataset'].length){ed.innerHTML =document.getElementById("std").value.toString()+" "+ obj['activities-steps-intraday']['dataset'][i+1]['time'];}
+        steps.innerHTML =obj['activities-steps-intraday']['dataset'][i]['value'];
+        cumstep.innerHTML =pev+obj['activities-steps-intraday']['dataset'][i]['value'];
+        pev=pev+obj['activities-steps-intraday']['dataset'][i]['value'];
+       }
+    }
+        });
+        var data;
+    $.ajax({
+        type: 'GET',
+        beforeSend: function(request) {
+             request.setRequestHeader("Authorization", 'Bearer ' + access_token);
+            },
+    url: "https://api.fitbit.com/1.2/user/-/sleep/date/"+moment(document.getElementById("setd").value.toString()).format("YYYY-MM-DD")+"/"+moment(document.getElementById("std").value.toString()).format("YYYY-MM-DD")+".json",
+    success:function(data, status, xhr){
+      var obj = JSON.stringify(data);
+       obj = JSON.parse(obj);
+       console.log(obj);
+       console.log(obj['sleep'].length);
+       document.getElementById("sltable").innerHTML="<table style='width:100%' id='sleep' align='center'><caption>Sleeping Record</caption><th>Start</th><th>End</th> <th>Types</th><th>Duration</th></tr></table>";
+       var table = document.getElementById("sleep");
+       for(var j=(obj['sleep'].length-1);j>-1;j--){
+        for(var i=0;i<obj['sleep'][j]['levels']['data'].length;i++){
+        var row = table.insertRow(document.getElementById("sleep").rows.length);
+        var st = row.insertCell(0);
+        var ed = row.insertCell(1);
+        var sleeptype=row.insertCell(2);
+        var sleepd=row.insertCell(3);
+        row.align='center';
+        st.innerHTML =moment(obj['sleep'][j]['levels']['data'][i]['dateTime']).format('YYYY-MM-DD HH:mm:ss');
+        ed.innerHTML =moment(obj['sleep'][j]['levels']['data'][i]['dateTime']).add(obj['sleep'][j]['levels']['data'][i]['seconds'],'s').format('YYYY-MM-DD HH:mm:ss');
+        sleeptype.innerHTML =obj['sleep'][j]['levels']['data'][i]['level'];
+        sleepd.innerHTML =obj['sleep'][j]['levels']['data'][i]['seconds'];
+       }
+      }
+    }
+        });
+        $.ajax({
+        type: 'GET',
+        beforeSend: function(request) {
+             request.setRequestHeader("Authorization", 'Bearer ' + access_token);
+            },
+    url: "https://api.fitbit.com/1/user/-/profile.json",
+    success:function(data, status, xhr){
+      document.getElementById('sdown').download=data['user']['aboutMe']+"_"+document.getElementById("std").value.toString()+"_Step_Count.csv";
+      document.getElementById('hdown').download=data['user']['aboutMe']+"_"+document.getElementById("std").value.toString()+"_Heart_rate.csv";
+      document.getElementById('sldown').download=data['user']['aboutMe']+"_"+moment(document.getElementById("setd").value.toString()).format("YYYY-MM-DD")+"/"+moment(document.getElementById("std").value.toString()).format("YYYY-MM-DD")+"_Sleep.csv";
+      document.getElementById("aca").innerHTML="Account: "+data['user']['aboutMe'];
+    }
+        });
+        $.ajax({
+        type: 'GET',
+        beforeSend: function(request) {
+             request.setRequestHeader("Authorization", 'Bearer ' + access_token);
+            },
+    url: "https://api.fitbit.com/1/user/-/activities/minutesLightlyActive/date/2017-09-01/2017-09-25.json",
+    success:function(data, status, xhr){
+      
+    }
+        });
+        }
+</script>
+<div id="stable" class="tabular"></div>
+<div id="htable" class="tabular"></div>
+<div id="sltable" class="tabular"></div>
+  <div id="foot">
+      <p>Table export is supported by <a href="https://github.com/jmaister" class="cite">jmaister</a> excellentexport.js<br> and the date time conversion is supported by <a href="http://momentjs.com/" class="cite">moment.js</a></p>
+      <p>Designed by: YU CHENG, HSU</p>  
+    </div>
+  </body>
+</html>
