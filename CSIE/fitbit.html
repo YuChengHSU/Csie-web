@@ -18,456 +18,697 @@
 -->
 <!DOCTYPE html>
 <html lang="English">
-  <meta name="black">
-  <head>
-    <title>CSIE step count collection</title>
-    <meta charset='utf-8' />
-    <script src="echarts.min.js"></script>
-    <script src="moment.min.js"></script>
-    <script src="excellentexport.js"></script>
-    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>  
-    <script>
-    function scroll2(pos){
-        var move = document.getElementById(pos).getBoundingClientRect().top;
-        var step =Math.abs(move);
-        var i=0;
-        var moving=setInterval(function(){scrollBy(0,move*Math.sin(i*Math.PI/48)/30.54);i++;if(i>48){i=0;clearInterval(moving);}},20.83);
-    }
-    </script>
-    <style>
-      *{font-family: Arial;}
-    p,h2,table{
-      text-align: center;
-      color:white;
-      }  
-    h1{ 
-      font-family:"Times New Roman";
-      font-size: 32pt;
-      letter-spacing:3px;
-      margin:0px;
-      padding-top: 10%;
+<meta name="black">
+
+<head>
+  <title>CSIE step count collection</title>
+  <meta charset='utf-8' />
+  <script src="moment.min.js"></script>
+  <script src="excellentexport.js" type='text/javascript'></script>
+  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js" type='text/javascript'></script>
+  <script src="http://weareoutman.github.io/clockpicker/dist/jquery-clockpicker.min.js" type='text/javascript'></script>
+
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/css/bootstrap-material-design.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/css/ripples.min.css">
+  <link rel="stylesheet" href="http://t00rk.github.io/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css">
+  <link href="http://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/js/ripples.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/js/material.min.js"></script>
+  <script type="text/javascript" src="http://t00rk.github.io/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+
+
+  <style>
+    #stime,
+    #etime {
+      border: none;
       color: white;
+      width: 150px;
+      height: 48px;
+    }
+
+    .dtp {
+      color: black;
+      margin: 0px;
+      top: 50px;
+      position: fixed;
+      float: left;
+      height: 520px;
+      width: 300px;
+      z-index: 10;
+    }
+    .dtp div.dtp-date, .dtp div.dtp-time { 
+      color: white;
+      background-color: black;
+    }
+    .dtp table.dtp-picker-days tr > td > a.selected {
+    background: black;
+}
+  </style>
+  <script>
+    function scroll2(pos) {
+      var move = document.getElementById(pos).getBoundingClientRect().top;
+      var step = Math.abs(move);
+      var i = 0;
+      var moving = setInterval(function () { scrollBy(0, move * Math.sin(i * Math.PI / 48) / 30.54); i++; if (i > 48) { i = 0; clearInterval(moving); } }, 20.83);
+    }
+  </script>
+  <style src="http://weareoutman.github.io/clockpicker/dist/jquery-clockpicker.min.css"></style>
+  <style>
+    * {
+      font-family: Arial;
+    }
+
+    p,
+    h2,
+    table {
       text-align: center;
-      }
-    .bdiv{
-      -webkit-box-align:center;
-      -webkit-box-pack:center;
-      display:-webkit-box;
+      color: white;
     }
+
+    h1 {
+      color: white;
+      font-family: "Times New Roman";
+      font-size: 32pt;
+      letter-spacing: 3px;
+      margin: 0px;
+      padding-top: 10%;
+      text-align: center;
+    }
+
+    .bdiv {
+      color: white;
+      -webkit-box-align: center;
+      -webkit-box-pack: center;
+      display: -webkit-box;
+    }
+
     a.button {
-    font-size: 18px;
-    letter-spacing:0.5px;
-    margin-left:20px;
-    text-decoration: none;
-    border-style: solid;
-    color: white;
-    padding: 5px
-    }
-    a.button:visited {
-    color: white;
-      }
-    a.cite:visited {
-    color: white;
-      }
-    input{
-      -webkit-box-align:center;
-      -webkit-box-pack:center;
-      display:-webkit-box;
-    }
-    p.button{
       font-size: 18px;
-    letter-spacing:0.5px;
-    border-style: solid;
-    color: white;
-    padding: 5px
+      letter-spacing: 0.5px;
+      margin-left: 20px;
+      text-decoration: none;
+      border-style: solid;
+      color: white;
+      padding: 5px
     }
+
+    a.button:visited {
+      color: white;
+    }
+
+    a.cite:visited {
+      color: white;
+    }
+
+    input {
+      -webkit-box-align: center;
+      -webkit-box-pack: center;
+      display: -webkit-box;
+    }
+
+    p.button {
+      font-size: 18px;
+      letter-spacing: 0.5px;
+      border-style: solid;
+      color: white;
+      padding: 5px
+    }
+
     .button:hover {
-    border-color: white;
-    background-color: white;
-    color: black;
+      border-color: white;
+      background-color: white;
+      color: black;
     }
+
     a.button:hover {
-    border-color: white;
-    background-color: white;
-    color: black;
+      border-color: white;
+      background-color: white;
+      color: black;
     }
-    #log{
-      margin-left:0px;
+
+    #log {
+      margin-left: 0px;
     }
-    .tabular{
+
+    .tabular {
       margin-top: 20px;
     }
-    caption{
+
+    caption {
       font-size: 1.5em;
       margin-top: 0.83em;
       margin-bottom: 0.83em;
       text-align: center;
       font-weight: bold;
-    }  
-    </style>
-    <!--For scrolling  -->
-    <style>
+    }
+  </style>
+  <!--For scrolling  -->
+  <style>
+    .scroll:visited {
+      color: white;
+    }
 
-      .scroll:visited{
-        color: white;
-      }
-      #scroll{
-      right:50px;
-      position:fixed;
+    #scroll {
+      right: 50px;
+      position: fixed;
       bottom: 27%;
       width: 5%;
-      height:50%;
+      height: 50%;
       z-index: 2;
       background-color: none;
-      }
-      a.scroll {
-        text-decoration: none;
-        padding-top: 80px;
-      }
-      a.scroll span.down {
-        left:0px;
-        position: absolute;
-        top: 0;
-        width: 24px;
-        height: 24px;
-        margin-left: -12px;
-        border-left: 1px solid #ffffff;
-        border-bottom: 1px solid #ffffff;
-        -webkit-transform: rotate(-45deg);
-        transform: rotate(-45deg);
-        -webkit-animation: sdb 2s infinite;
-        animation: sdb 2s infinite;
+    }
+
+    a.scroll {
+      text-decoration: none;
+      padding-top: 80px;
+    }
+
+    a.scroll span.down {
+      left: 0px;
+      position: absolute;
+      top: 0;
+      width: 24px;
+      height: 24px;
+      margin-left: -12px;
+      border-left: 1px solid #ffffff;
+      border-bottom: 1px solid #ffffff;
+      -webkit-transform: rotate(-45deg);
+      transform: rotate(-45deg);
+      -webkit-animation: sdb 2s infinite;
+      animation: sdb 2s infinite;
+      opacity: 0;
+      box-sizing: border-box;
+    }
+
+    a.scroll span.down:nth-of-type(1) {
+      top: 92.5%;
+      -webkit-animation-delay: 0s;
+      animation-delay: 0s;
+    }
+
+    a.scroll span.down:nth-of-type(2) {
+      top: 94%;
+      -webkit-animation-delay: .15s;
+      animation-delay: .15s;
+    }
+
+    a.scroll span.down:nth-of-type(3) {
+      top: 95.5%;
+      -webkit-animation-delay: .3s;
+      animation-delay: .3s;
+    }
+
+    a.scroll span.top {
+      left: 0px;
+      position: absolute;
+      top: 0;
+      width: 24px;
+      height: 24px;
+      margin-left: -12px;
+      border-top: 1px solid #ffffff;
+      border-right: 1px solid #ffffff;
+      -webkit-transform: rotate(-45deg);
+      transform: rotate(-45deg);
+      -webkit-animation: sdb 2s infinite;
+      animation: sdb 2s infinite;
+      opacity: 0;
+      box-sizing: border-box;
+    }
+
+    a.scroll span.top:nth-of-type(1) {
+      top: 5.5%;
+      -webkit-animation-delay: 0s;
+      animation-delay: 0s;
+    }
+
+    a.scroll span.top:nth-of-type(2) {
+      top: 4%;
+      -webkit-animation-delay: .15s;
+      animation-delay: .15s;
+    }
+
+    a.scroll span.top:nth-of-type(3) {
+      top: 2.5%;
+      -webkit-animation-delay: .3s;
+      animation-delay: .3s;
+    }
+
+    @-webkit-keyframes sdb {
+      0% {
         opacity: 0;
-        box-sizing: border-box;
       }
-      a.scroll span.down:nth-of-type(1) {
-        top:92.5%;
-        -webkit-animation-delay: 0s;
-        animation-delay: 0s;
+      50% {
+        opacity: 1;
       }
-      a.scroll span.down:nth-of-type(2) {
-        top: 94%;
-        -webkit-animation-delay: .15s;
-        animation-delay: .15s;
-      }
-      a.scroll span.down:nth-of-type(3) {
-        top: 95.5%  ;
-        -webkit-animation-delay: .3s;
-        animation-delay: .3s;
-      }
-      a.scroll span.top {
-        left:0px;
-        position: absolute;
-        top: 0;
-        width: 24px;
-        height: 24px;
-        margin-left: -12px;
-        border-top: 1px solid #ffffff;
-        border-right: 1px solid #ffffff;
-        -webkit-transform: rotate(-45deg);
-        transform: rotate(-45deg);
-        -webkit-animation: sdb 2s infinite;
-        animation: sdb 2s infinite;
+      100% {
         opacity: 0;
-        box-sizing: border-box;
       }
-      a.scroll span.top:nth-of-type(1) {
-        top:5.5%;
-        -webkit-animation-delay: 0s;
-        animation-delay: 0s;
+    }
+
+    @keyframes sdb {
+      0% {
+        opacity: 0;
       }
-      a.scroll span.top:nth-of-type(2) {
-        top: 4%;
-        -webkit-animation-delay: .15s;
-        animation-delay: .15s;
+      50% {
+        opacity: 1;
       }
-      a.scroll span.top:nth-of-type(3) {
-        top: 2.5%  ;
-        -webkit-animation-delay: .3s;
-        animation-delay: .3s;
+      100% {
+        opacity: 0;
       }
-      @-webkit-keyframes sdb {
-        0% {
-          opacity: 0;
-        }
-        50% {
-          opacity: 1;
-        }
-        100% {
-          opacity: 0;
-        }
-      }
-      @keyframes sdb {
-        0% {
-          opacity: 0;
-        }
-        50% {
-          opacity: 1;
-        }
-        100% {
-          opacity: 0;
-        }
-      }
-      .ind{
-        text-decoration: none;
-        color: white;
-        position: absolute;
-        left  :0px;
-        top:7%;
-      }
-      #scroll a.ind:nth-of-type(2) {
-        color: white;
-        top: 25%;
-        }
-      #scroll a.ind:nth-of-type(3) {
-        color: white;
-        top: 50%;
-        }
-      #scroll a.ind:nth-of-type(4) {
-        color: white;
-        top: 75%;
-        }
-    </style>
-    <style>
-      #main{
-        z-index: 0;
-        top:0px;
-        background-image: url("IMG_583265.jpg");
-        background-repeat: no-repeat;
-        background-size: cover;
-        width:100%;
-        height:100vh;
-      }
-      .tabular{ 
+    }
+
+    .ind {
+      text-decoration: none;
+      color: white;
+      position: absolute;
+      left: 0px;
+      top: 7%;
+    }
+
+    #scroll a.ind:nth-of-type(2) {
+      color: white;
+      top: 25%;
+    }
+
+    #scroll a.ind:nth-of-type(3) {
+      color: white;
+      top: 50%;
+    }
+
+    #scroll a.ind:nth-of-type(4) {
+      color: white;
+      top: 75%;
+    }
+  </style>
+  <style>
+    #main {
+      z-index: 0;
+      top: 0px;
+      background-image: url("IMG_583265.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      width: 100%;
+      height: 100vh;
+    }
+
+    .tabular {
       overflow: scroll;
       overflow-x: hidden;
-      margin:0px;
+      margin: 0px;
       z-index: 0;
       background-image: url("desktop-wallpaper-8.jpg");
       background-repeat: no-repeat;
       background-size: cover;
-      width:100%;
-      height:100vh;}
-      table{margin-bottom: 5%;
-        margin-top: 5%;}
-    </style>   
-    <!--Scrolling style-->
-    <style> 
-     .tabular::-webkit-scrollbar {
+      width: 100%;
+      height: 100vh;
+    }
+
+    table {
+      margin-bottom: 5%;
+      margin-top: 5%;
+    }
+  </style>
+  <!--Scrolling style-->
+  <style>
+    .tabular::-webkit-scrollbar {
       position: relative;
       width: 50px;
       height: 50px;
-      }   
+    }
 
-     ::-webkit-scrollbar-track{
+    ::-webkit-scrollbar-track {
       background: none;
-      } 
+    }
 
-     ::-webkit-scrollbar-thumb {
-      background: rgba(256,256,256,0.3);
-      }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(256, 256, 256, 0.3);
+    }
 
-      ::-webkit-scrollbar-thumb:hover {
-        background: rgba(1,1,1,0.3);
-      }
-    </style>
-    <!--Calendar-->
-    <style> 
-      input[type=date] {
-        background:none;
-        text-decoration: bold;
-        text-align: center;
-        border:none;
-        color: white;
-        font-family: Arial;
-        font-size: 15px;
-      }
-      input[type="date"]::-webkit-calendar-picker-indicator {
-        color: white;
-        opacity: 1;
-        background: none;
-        z-index: 1;
-        }
-       ::-webkit-inner-spin-button {
-         background-image: none;
-         background: none;
-         opacity: 1;
-          color: white;
-         }
-        input[type=date]:focus {
-        font-family: Arial, Helvetica, sans-serif;
-        text-decoration: bold;
-        background:white;
-        text-align: center;
-        border:none;
-        color: black;
-        font-family: Arial;
-        font-size: 15px;
-      }
-     </style>
-     <style>
-     #foot{
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(1, 1, 1, 0.3);
+    }
+  </style>
+  <!--Calendar-->
+  <style>
+    input {
+      text-decoration: bold;
+      border: none;
+      background: none;
+      color: white;
+      font-size: 15px;
+    }
+
+    input[type=date] {
+      text-align: center;
+      font-family: Arial;
+    }
+
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      color: white;
+      opacity: 1;
+      background: none;
+      z-index: 1;
+    }
+
+    ::-webkit-inner-spin-button {
+      background-image: none;
+      background: none;
+      opacity: 1;
+      color: white;
+    }
+
+    input[type=date]:focus {
+      font-family: Arial, Helvetica, sans-serif;
+      text-decoration: bold;
+      background: white;
+      text-align: center;
+      border: none;
+      color: black;
+      font-family: Arial;
+      font-size: 15px;
+    }
+  </style>
+  <style>
+    #foot {
       column-count: 2;
-      width:100%;
-      height:150px;
+      width: 100%;
+      height: 150px;
       background: black;
-     }
-     #foot > p{
-       font-size: 16px;
-       margin:0px;
-       padding-top: 50px;
-       padding-left: 10px;
-       padding-right: 10px;
-     }
-     </style>
-  </head>
-  <body>
-    <div id="main" class="page">
+    }
+
+    #foot>p {
+      font-size: 16px;
+      margin: 0px;
+      padding-top: 50px;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  </style>
+  <style>
+    /*loader */
+
+    /* Center the loader */
+
+    @-webkit-keyframes pulse {
+      50% {
+        background: white;
+      }
+    }
+
+    @keyframes pulse {
+      50% {
+        background: white;
+      }
+    }
+
+    .loading-pulse {
+      display: none;
+      position: absolute;
+      left: 50%;
+      bottom: 15%;
+      width: 50px;
+      height: 200px;
+      background: rgba(255, 255, 255, 0.2);
+      -webkit-animation: pulse 750ms infinite;
+      animation: pulse 750ms infinite;
+      -webkit-animation-delay: 250ms;
+      animation-delay: 250ms;
+    }
+
+    .loading-pulse:before,
+    .loading-pulse:after {
+      content: '';
+      position: absolute;
+      display: block;
+      height: 133px;
+      width: 50px;
+      background: rgba(255, 255, 255, 0.2);
+      top: 50%;
+      -webkit-transform: translateY(-50%);
+      transform: translateY(-50%);
+      -webkit-animation: pulse 750ms infinite;
+      animation: pulse 750ms infinite;
+    }
+
+    .loading-pulse:before {
+      left: -100px;
+    }
+
+    .loading-pulse:after {
+      left: 100px;
+      -webkit-animation-delay: 500ms;
+      animation-delay: 500ms;
+    }
+  </style>
+</head>
+
+<body>
+  <style type="text/javascript" src="http://t00rk.github.io/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css"></style>
+  <div id="main" class="page">
+    <div class="loading-pulse" id="loader">
+    </div>
     <h1>Centre of System Informatic Engineering</h1>
     <p>Pilot Study 3 data collection web</p>
-    <div class="bdiv"><a href="fitbitLogin.html" class="button" id="log">Login to Fitbit</a></div></br>
-    <div class="bdiv">Start date (Only for Sleep)<input type="date" name="bday" id="setd" value="" class="bdiv"></div>
-    <div class="bdiv">End date (for All)<input type="date" name="bday" id="std" value="" class="bdiv"></div>
-    <div class="bdiv"><p onclick="search()" class="button">Collect</p></div>
-    <div class="bdiv"><h2 id="aca"></h2></div>
-    <div class="bdiv"> 
-    <a download="Step_Count.csv" href="#" onclick="return ExcellentExport.csv(this, 'summary');" id="sdown" class="button">Export Step Count to csv</a>
-    <a download="Heart_Rate.csv" href="#" onclick="return ExcellentExport.csv(this, 'heart');" id="hdown" class="button">Export heart beat to csv</a>
-    <a download="Sleep.csv" href="#" onclick="return ExcellentExport.csv(this, 'sleep');" id="sldown" class="button">Export Sleeping data to csv</a>
+    <div class="bdiv">
+      <a href="fitbitLogin.html" class="button" id="log">Login to Fitbit</a>
     </div>
+    </br>
+    <div class="bdiv"><p>Start date:  </p>
+      <input type="text" id="stime" class="form-control" data-dtp="dtp_9OGvB">
+      <script>
+        $('#stime').bootstrapMaterialDatePicker({ format: 'YYYY/MM/DD HH:mm', weekStart: 1, cancelText: 'Cancel' });
+        $('.dtp').css('top', $("#stime").offset().top);
+        $('.dtp').css('left', $("#stime").offset().right);
+      </script>
     </div>
-    <div id="scroll"><a class="scroll" onclick="scroll2('main')"><span class="top"></span><span class="top"></span><span class="top"></span></a><a class="ind" onclick="scroll2('stable')">Step</a><a class="ind" onclick="scroll2('htable')">Heart rate</a><a class="ind" onclick="scroll2('sltable')">Sleep</a><a class="scroll" onclick="scroll2('foot')"><span class="down"></span><span class="down" ></span><span class="down"></span></a></div>
-    <script>
-        // get the url 
-        var url = window.location.href;
-        //getting the access token from url
-        toaday=new Date();
-        try{
-          var access_token = url.split("#")[1].split("=")[1].split("&")[0];
-          document.cookie = "access_token="+access_token;
-          document.getElementById("setd").value=moment(toaday).format("YYYY-MM-DD");
-          document.getElementById("std").value=moment(toaday).format("YYYY-MM-DD");
-        }
-        catch(err){
-          access_token=document.cookie.split("=")[1];
-          document.getElementById("setd").value=moment(toaday).format("YYYY-MM-DD");
-          document.getElementById("std").value=moment(toaday).format("YYYY-MM-DD");
-        }
-        function search(){
+    <div class="bdiv"><p>End date: </p>  
+      <input type="text" id="etime" class="form-control" data-dtp="dtp_9OGvB">
+      <script>
+        $('#etime').bootstrapMaterialDatePicker({ format: 'YYYY/MM/DD HH:mm', weekStart: 1, cancelText: 'Cancel' });
+        $('.dtp').css('top', $("#etime").offset().top);
+        $('.dtp').css('left', $("#etime").offset().left);
+      </script>
+    </div>
+    <div class="bdiv">
+      <p onclick="search()" class="button">Collect</p>
+    </div>
+    <div class="bdiv">
+      <h2 id="aca"></h2>
+    </div>
+    <div class="bdiv">
+      <a download="Step_Count.csv" href="#" onclick="return ExcellentExport.csv(this, 'summary');" id="sdown" class="button">Export Step Count to csv</a>
+      <a download="Heart_Rate.csv" href="#" onclick="return ExcellentExport.csv(this, 'heart');" id="hdown" class="button">Export heart beat to csv</a>
+      <a download="Sleep.csv" href="#" onclick="return ExcellentExport.csv(this, 'sleep');" id="sldown" class="button">Export Sleeping data to csv</a>
+    </div>
+  </div>
+  <div id="scroll">
+    <a class="scroll" onclick="scroll2('main')">
+      <span class="top"></span>
+      <span class="top"></span>
+      <span class="top"></span>
+    </a>
+    <a class="ind" onclick="scroll2('stable')">Step</a>
+    <a class="ind" onclick="scroll2('htable')">Heart rate</a>
+    <a class="ind" onclick="scroll2('sltable')">Sleep</a>
+    <a class="scroll" onclick="scroll2('foot')">
+      <span class="down"></span>
+      <span class="down"></span>
+      <span class="down"></span>
+    </a>
+  </div>
+  <script>
+    
+    // get the url 
+    var url = window.location.href;
+    //getting the access token from url
+    toaday = new Date();
+    try {
+      var access_token = url.split("#")[1].split("=")[1].split("&")[0];
+      document.cookie = "access_token=" + access_token;
+      setd = moment(toaday).format("YYYY-MM-DD");
+      document.getElementById("std").value = moment(toaday).format("YYYY-MM-DD");
+    }
+    catch (err) {
+      access_token = document.cookie.split("=")[1];
+      setd = moment(toaday).format("YYYY-MM-DD");
+      document.getElementById("std").value = moment(toaday).format("YYYY-MM-DD");
+    }
+    function search() {
+      var setd=document.getElementById("stime").value[0]+document.getElementById("stime").value[1]+document.getElementById("stime").value[2]+document.getElementById("stime").value[3]+document.getElementById("stime").value[4]+document.getElementById("stime").value[5]+document.getElementById("stime").value[6]+document.getElementById("stime").value[7]+document.getElementById("stime").value[8]+document.getElementById("stime").value[9];
+      var endDate=document.getElementById("etime").value[0]+document.getElementById("etime").value[1]+document.getElementById("etime").value[2]+document.getElementById("etime").value[3]+document.getElementById("etime").value[4]+document.getElementById("etime").value[5]+document.getElementById("etime").value[6]+document.getElementById("etime").value[7]+document.getElementById("etime").value[8]+document.getElementById("etime").value[9];
+      document.getElementById("loader").style.display = "initial";
+      var hrdata = [];
+      var hrtime = [];
+      var stdata = [];
+      var sttime = [];
+      document.getElementById("stable").innerHTML = " <table style='width:100%' id='summary' align='center'><tr align='center'><caption>Step Count</caption><th>Start</th><th>End</th> <th>Steps</th><th>Cum_steps</th></tr></table>";
+      document.getElementById("htable").innerHTML = "<table style='width:100%' id='heart' align='center'>< caption > Heart rate</caption > <tr align='center'><th>Time</th><th>Heart beats</th></tr></table > "
+      diffTime = moment(endDate).diff(moment(setd), 'days') + 1;
+      if (diffTime != 1) {
+        var firstTime = document.getElementById("stime").value[11]+document.getElementById("stime").value[12]+document.getElementById("stime").value[13]+document.getElementById("stime").value[14]+document.getElementById("stime").value[15];
+        var lastTime = document.getElementById("etime").value[11]+document.getElementById("etime").value[12]+document.getElementById("etime").value[13]+document.getElementById("etime").value[14]+document.getElementById("etime").value[15]
+        console.log(firstTime);
+      }
+      for (var j = 0; j < diffTime; j++) { // Making several days time data
         var data;
-    $.ajax({
+        if (firstTime.length > 0 && j == 0) {
+          hlink = "https://api.fitbit.com/1/user/-/activities/heart/date/" + moment(setd).add(j, 'days').format("YYYY-MM-DD") + "/" + moment(setd).add(j, 'days').format("YYYY-MM-DD") + "/1min/time/" + firstTime[0] + firstTime[1] + "%3A" + firstTime[3] + firstTime[4] + "/23%3A59.json";
+          slink = "https://api.fitbit.com/1/user/-/activities/steps/date/" + moment(setd).add(j, 'days').format("YYYY-MM-DD") + "/1d/15min/time/" + firstTime[0] + firstTime[1] + "%3A" + firstTime[3] + firstTime[4] + "/23%3A45.json";
+        }
+        else if (lastTime.length > 0 && j == (diffTime - 1)) {
+          hlink = "https://api.fitbit.com/1/user/-/activities/heart/date/" + moment(setd).add(j, 'days').format("YYYY-MM-DD") + "/" + moment(setd).add(j, 'days').format("YYYY-MM-DD") + "/1min/time/00%3A00/" + lastTime[0] + lastTime[1] + "%3A" + lastTime[3] + lastTime[4] + ".json";
+          slink = "https://api.fitbit.com/1/user/-/activities/steps/date/" + moment(setd).add(j, 'days').format("YYYY-MM-DD") + "/1d/15min/time/00%3A00/" + lastTime[0] + lastTime[1] + "%3A" + lastTime[3] + lastTime[4] + ".json";
+        }
+        else {
+          hlink = "https://api.fitbit.com/1/user/-/activities/heart/date/" + moment(setd).add(j, 'days').format("YYYY-MM-DD") + "/" + moment(setd).add(j, 'days').format("YYYY-MM-DD") + "/1min/time/00%3A00/23%3A59.json";
+          slink = "https://api.fitbit.com/1/user/-/activities/steps/date/" + moment(setd).add(j, 'days').format("YYYY-MM-DD") + "/1d/15min/time/00%3A00/23%3A45.json";
+        }
+        // Getting Heart rate
+        $.ajax({
+          type: 'GET',
+          beforeSend: function (request) {
+            request.setRequestHeader("Authorization", 'Bearer ' + access_token);
+          },
+          url: hlink,
+          success: function (data, status, xhr) {
+            var obj = JSON.stringify(data);
+            obj = JSON.parse(obj);
+            console.log(obj);
+            hrdata.push(obj);
+            hrtime.push(obj['activities-heart'][0]['dateTime']);
+          }
+        });
+        //Getting walking steps
+        var data;
+        $.ajax({
+          type: 'GET',
+          beforeSend: function (request) {
+            request.setRequestHeader("Authorization", 'Bearer ' + access_token);
+          },
+          url: slink,
+          success: function (data, status, xhr) {
+            console.log(data);
+            var obj = JSON.stringify(data);
+            obj = JSON.parse(obj);
+            stdata.push(obj);
+            sttime.push(obj['activities-steps'][0]['dateTime']);
+            var pev = 0;
+          }
+        });
+      }
+      //Getting profile
+      $.ajax({
         type: 'GET',
-        beforeSend: function(request) {
-             request.setRequestHeader("Authorization", 'Bearer ' + access_token);
-            },
-    url: "https://api.fitbit.com/1/user/-/activities/heart/date/"+document.getElementById("std").value.toString()+"/"+document.getElementById("std").value.toString()+"/1min/time/00%3A00/23%3A59.json",
-    success:function(data, status, xhr){
-        var obj = JSON.stringify(data);
-       obj = JSON.parse(obj);
-       document.getElementById("htable").innerHTML="<table style='width:100%' id='heart' align='center'><caption>Heart rate</caption><tr align='center'><th>Time</th><th>Heart beats</th></tr></table>";
-       for(var i=0;i<obj['activities-heart-intraday']['dataset'].length;i++){ 
-        var table = document.getElementById("heart");
-            var row = table.insertRow(i+1);
+        beforeSend: function (request) {
+          request.setRequestHeader("Authorization", 'Bearer ' + access_token);
+        },
+        url: "https://api.fitbit.com/1/user/-/profile.json",
+        success: function (data, status, xhr) {
+          document.getElementById('sdown').download = data['user']['aboutMe'] + "_" + setd.toString() + "_" + endDate.toString() + "_Step_Count.csv";
+          document.getElementById('hdown').download = data['user']['aboutMe'] + "_" + setd.toString() + "_" + endDate.toString() + "_Heart_rate.csv";
+          document.getElementById('sldown').download = data['user']['aboutMe'] + "_" + moment(setd.toString()).format("YYYY-MM-DD") + "/" + moment(endDate.toString()).format("YYYY-MM-DD") + "_Sleep.csv";
+          document.getElementById("aca").innerHTML = "Account: " + data['user']['aboutMe'];
+        }
+      });
+      //Getting Sleep data
+      var data;
+      $.ajax({
+        type: 'GET',
+        beforeSend: function (request) {
+          request.setRequestHeader("Authorization", 'Bearer ' + access_token);
+        },
+        url: "https://api.fitbit.com/1.2/user/-/sleep/date/" + moment(setd.toString()).format("YYYY-MM-DD") + "/" + moment(endDate.toString()).format("YYYY-MM-DD") + ".json",
+        success: function (data, status, xhr) {
+          var obj = JSON.stringify(data);
+          obj = JSON.parse(obj);
+          console.log(obj);
+          document.getElementById("sltable").innerHTML = "<table style='width:100%' id='sleep' align='center'><caption>Sleeping Record</caption><th>Start</th><th>End</th> <th>Types</th><th>Duration</th></tr></table>";
+          var table = document.getElementById("sleep");
+          for (var j = (obj['sleep'].length - 1); j > -1; j--) {
+            for (var i = 0; i < obj['sleep'][j]['levels']['data'].length; i++) {
+              var row = table.insertRow(document.getElementById("sleep").rows.length);
+              var st = row.insertCell(0);
+              var ed = row.insertCell(1);
+              var sleeptype = row.insertCell(2);
+              var sleepd = row.insertCell(3);
+              row.align = 'center';
+              st.innerHTML = moment(obj['sleep'][j]['levels']['data'][i]['dateTime']).format('YYYY-MM-DD HH:mm:ss');
+              ed.innerHTML = moment(obj['sleep'][j]['levels']['data'][i]['dateTime']).add(obj['sleep'][j]['levels']['data'][i]['seconds'], 's').format('YYYY-MM-DD HH:mm:ss');
+              sleeptype.innerHTML = obj['sleep'][j]['levels']['data'][i]['level'];
+              sleepd.innerHTML = obj['sleep'][j]['levels']['data'][i]['seconds'];
+            }
+          }
+        }
+      });
+      setTimeout(function () {
+        indexedTest = hrtime.map(function (e, i) { return { ind: i, val: e } });
+        // sort index/value couples, based on values
+        indexedTest.sort(function (x, y) { return x.val > y.val ? 1 : x.val == y.val ? 0 : -1 });
+        // make list keeping only indices
+        hrindices = indexedTest.map(function (e) { return e.ind });
+        for (var j = 0; j < hrindices.length; j++) {
+
+          for (var i = 0; i < hrdata[hrindices[j]]['activities-heart-intraday']['dataset'].length; i++) {
+            var table = document.getElementById("heart");
+            var row = table.insertRow(table.rows.length);
             var ti = row.insertCell(0);
             var hb = row.insertCell(1);
-            row.align='center';
-            ti.innerHTML=document.getElementById("std").value.toString()+" "+obj['activities-heart-intraday']['dataset'][i]['time'];
-            hb.innerHTML=obj['activities-heart-intraday']['dataset'][i]['value'];
-       }
-    }
-        });
-        var data;
-    $.ajax({
-        type: 'GET',
-        beforeSend: function(request) {
-             request.setRequestHeader("Authorization", 'Bearer ' + access_token);
-            },
-    url: "https://api.fitbit.com/1/user/-/activities/steps/date/"+document.getElementById("std").value.toString()+"/1d/15min/time/00%3A00/23%3A45.json",
-    success:function(data, status, xhr){
-      console.log(data);
-      var obj = JSON.stringify(data);
-       obj = JSON.parse(obj);
-       var pev=0;
-       document.getElementById("stable").innerHTML="  <table style='width:100%' id='summary' align='center'><tr align='center'><caption>Step Count</caption><th>Start</th><th>End</th> <th>Steps</th><th>Cum_steps</th></tr></table>";
-       for(var i=0;i<obj['activities-steps-intraday']['dataset'].length;i++){
-        var table = document.getElementById("summary");
-        var row = table.insertRow(i+2);
-        var st = row.insertCell(0);
-        var ed = row.insertCell(1);
-        var steps=row.insertCell(2);
-        var cumstep=row.insertCell(3);
-        row.align='center';
-        cumstep.id="cumstep"+i;
-        steps.id="steps"+i;
-        st.innerHTML = document.getElementById("std").value.toString()+" "+obj['activities-steps-intraday']['dataset'][i]['time'];
-        if(i+1<obj['activities-steps-intraday']['dataset'].length){ed.innerHTML =document.getElementById("std").value.toString()+" "+ obj['activities-steps-intraday']['dataset'][i+1]['time'];}
-        steps.innerHTML =obj['activities-steps-intraday']['dataset'][i]['value'];
-        cumstep.innerHTML =pev+obj['activities-steps-intraday']['dataset'][i]['value'];
-        pev=pev+obj['activities-steps-intraday']['dataset'][i]['value'];
-       }
-    }
-        });
-        var data;
-    $.ajax({
-        type: 'GET',
-        beforeSend: function(request) {
-             request.setRequestHeader("Authorization", 'Bearer ' + access_token);
-            },
-    url: "https://api.fitbit.com/1.2/user/-/sleep/date/"+moment(document.getElementById("setd").value.toString()).format("YYYY-MM-DD")+"/"+moment(document.getElementById("std").value.toString()).format("YYYY-MM-DD")+".json",
-    success:function(data, status, xhr){
-      var obj = JSON.stringify(data);
-       obj = JSON.parse(obj);
-       console.log(obj);
-       console.log(obj['sleep'].length);
-       document.getElementById("sltable").innerHTML="<table style='width:100%' id='sleep' align='center'><caption>Sleeping Record</caption><th>Start</th><th>End</th> <th>Types</th><th>Duration</th></tr></table>";
-       var table = document.getElementById("sleep");
-       for(var j=(obj['sleep'].length-1);j>-1;j--){
-        for(var i=0;i<obj['sleep'][j]['levels']['data'].length;i++){
-        var row = table.insertRow(document.getElementById("sleep").rows.length);
-        var st = row.insertCell(0);
-        var ed = row.insertCell(1);
-        var sleeptype=row.insertCell(2);
-        var sleepd=row.insertCell(3);
-        row.align='center';
-        st.innerHTML =moment(obj['sleep'][j]['levels']['data'][i]['dateTime']).format('YYYY-MM-DD HH:mm:ss');
-        ed.innerHTML =moment(obj['sleep'][j]['levels']['data'][i]['dateTime']).add(obj['sleep'][j]['levels']['data'][i]['seconds'],'s').format('YYYY-MM-DD HH:mm:ss');
-        sleeptype.innerHTML =obj['sleep'][j]['levels']['data'][i]['level'];
-        sleepd.innerHTML =obj['sleep'][j]['levels']['data'][i]['seconds'];
-       }
-      }
-    }
-        });
-        $.ajax({
-        type: 'GET',
-        beforeSend: function(request) {
-             request.setRequestHeader("Authorization", 'Bearer ' + access_token);
-            },
-    url: "https://api.fitbit.com/1/user/-/profile.json",
-    success:function(data, status, xhr){
-      document.getElementById('sdown').download=data['user']['aboutMe']+"_"+document.getElementById("std").value.toString()+"_Step_Count.csv";
-      document.getElementById('hdown').download=data['user']['aboutMe']+"_"+document.getElementById("std").value.toString()+"_Heart_rate.csv";
-      document.getElementById('sldown').download=data['user']['aboutMe']+"_"+moment(document.getElementById("setd").value.toString()).format("YYYY-MM-DD")+"/"+moment(document.getElementById("std").value.toString()).format("YYYY-MM-DD")+"_Sleep.csv";
-      document.getElementById("aca").innerHTML="Account: "+data['user']['aboutMe'];
-    }
-        });
-        $.ajax({
-        type: 'GET',
-        beforeSend: function(request) {
-             request.setRequestHeader("Authorization", 'Bearer ' + access_token);
-            },
-    url: "https://api.fitbit.com/1/user/-/activities/minutesLightlyActive/date/2017-09-01/2017-09-25.json",
-    success:function(data, status, xhr){
-      
-    }
-        });
+            row.align = 'center';
+            ti.innerHTML = hrdata[hrindices[j]]['activities-heart'][0]['dateTime'] + " " + hrdata[hrindices[j]]['activities-heart-intraday']['dataset'][i]['time'];
+            hb.innerHTML = hrdata[hrindices[j]]['activities-heart-intraday']['dataset'][i]['value'];
+          }
         }
-</script>
-<div id="stable" class="tabular"></div>
-<div id="htable" class="tabular"></div>
-<div id="sltable" class="tabular"></div>
-  <div id="foot">
-      <p>Table export is supported by <a href="https://github.com/jmaister" class="cite">jmaister</a> excellentexport.js<br> and the date time conversion is supported by <a href="http://momentjs.com/" class="cite">moment.js</a></p>
-      <p>Designed by: YU CHENG, HSU</p>  
+        indexedTest = sttime.map(function (e, i) { return { ind: i, val: e } });
+        // sort index/value couples, based on values
+        indexedTest.sort(function (x, y) { return x.val > y.val ? 1 : x.val == y.val ? 0 : -1 });
+        // make list keeping only indices
+        stindices = indexedTest.map(function (e) { return e.ind });
+        for (var j = 0; j < stindices.length; j++) {
+          var pev = 0;
+          for (var i = 0; i < stdata[stindices[j]]['activities-steps-intraday']['dataset'].length; i++) {
+            var table = document.getElementById("summary");
+            var row = table.insertRow(table.rows.length);
+            var st = row.insertCell(0);
+            var ed = row.insertCell(1);
+            var steps = row.insertCell(2);
+            var cumstep = row.insertCell(3);
+            row.align = 'center';
+            cumstep.id = "cumstep" + i;
+            steps.id = "steps" + i;
+            st.innerHTML = stdata[stindices[j]]['activities-steps'][0]['dateTime'] + " " + stdata[stindices[j]]['activities-steps-intraday']['dataset'][i]['time'];
+            if (i + 1 < stdata[stindices[j]]['activities-steps-intraday']['dataset'].length) { ed.innerHTML = stdata[stindices[j]]['activities-steps'][0]['dateTime'] + " " + stdata[stindices[j]]['activities-steps-intraday']['dataset'][i + 1]['time']; }
+            else { ed.innerHTML = moment(stdata[stindices[j]]['activities-steps'][0]['dateTime']).add(1, 'days').format("YYYY-MM-DD") + " 00:00:00" }
+            steps.innerHTML = stdata[stindices[j]]['activities-steps-intraday']['dataset'][i]['value'];
+            cumstep.innerHTML = pev + stdata[stindices[j]]['activities-steps-intraday']['dataset'][i]['value'];
+            pev = pev + stdata[stindices[j]]['activities-steps-intraday']['dataset'][i]['value'];
+
+          }
+        }
+        document.getElementById("loader").style.display = "none";
+      }, diffTime * 1300);
+
+    }
+  </script>
+  <div id="stable" class="tabular">
+  </div>
+  <div id="htable" class="tabular">
+  </div>
+  <div id="sltable" class="tabular">
     </div>
-  </body>
+  <div id="foot">
+    <p>Table export is supported by
+      <a href="https://github.com/jmaister" class="cite">jmaister</a> excellentexport.js
+      <br> and the date time conversion is supported by
+      <a href="http://momentjs.com/" class="cite">moment.js</a>
+    </p>
+    <p>Designed by: YU CHENG, HSU</p>
+  </div>
+
+</body>
+
 </html>
