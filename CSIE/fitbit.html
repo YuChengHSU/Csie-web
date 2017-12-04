@@ -76,7 +76,7 @@
       var i = 0;
       var moving = setInterval(function () { scrollBy(0, move * Math.sin(i * Math.PI / 48) / 30.54); i++; if (i > 48) { i = 0; clearInterval(moving); } }, 20.83);
     }
-  </script>
+  </script>g
   <style src="http://weareoutman.github.io/clockpicker/dist/jquery-clockpicker.min.css"></style>
   <style>
     * {
@@ -530,13 +530,9 @@
     try {
       var access_token = url.split("#")[1].split("=")[1].split("&")[0];
       document.cookie = "access_token=" + access_token;
-      setd = moment(toaday).format("YYYY-MM-DD");
-      document.getElementById("std").value = moment(toaday).format("YYYY-MM-DD");
     }
     catch (err) {
       access_token = document.cookie.split("=")[1];
-      setd = moment(toaday).format("YYYY-MM-DD");
-      document.getElementById("std").value = moment(toaday).format("YYYY-MM-DD");
     }
     function search() {
       var setd=document.getElementById("stime").value[0]+document.getElementById("stime").value[1]+document.getElementById("stime").value[2]+document.getElementById("stime").value[3]+document.getElementById("stime").value[4]+document.getElementById("stime").value[5]+document.getElementById("stime").value[6]+document.getElementById("stime").value[7]+document.getElementById("stime").value[8]+document.getElementById("stime").value[9];
@@ -682,7 +678,6 @@
             steps.id = "steps" + i;
             st.innerHTML = stdata[stindices[j]]['activities-steps'][0]['dateTime'] + " " + stdata[stindices[j]]['activities-steps-intraday']['dataset'][i]['time'];
             if (i + 1 < stdata[stindices[j]]['activities-steps-intraday']['dataset'].length) { ed.innerHTML = stdata[stindices[j]]['activities-steps'][0]['dateTime'] + " " + stdata[stindices[j]]['activities-steps-intraday']['dataset'][i + 1]['time']; }
-            else { ed.innerHTML = moment(stdata[stindices[j]]['activities-steps'][0]['dateTime']).add(1, 'days').format("YYYY-MM-DD") + " 00:00:00" }
             steps.innerHTML = stdata[stindices[j]]['activities-steps-intraday']['dataset'][i]['value'];
             cumstep.innerHTML = pev + stdata[stindices[j]]['activities-steps-intraday']['dataset'][i]['value'];
             pev = pev + stdata[stindices[j]]['activities-steps-intraday']['dataset'][i]['value'];
