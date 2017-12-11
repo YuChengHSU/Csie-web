@@ -28,7 +28,7 @@ or
 ## 2. You are good now, let's go to the website
 Type the url below in your browser (google chrome is recommended as I test the web on this browser)
 
-[127.0.0.1:8000/CSIE/fitbit.html](127.0.0.1:8000/CSIE/fitbit.html "Go to there by clicking the link!")
+<127.0.0.1:8000/CSIE/fitbit.html>
 
 ## 3. Ok let's collect data!
 It can be separate into 3 main steps
