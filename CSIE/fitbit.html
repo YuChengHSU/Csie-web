@@ -29,25 +29,24 @@
     excellentexport.js in local side
   -->
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js" type='text/javascript'></script>   
-  <script src="moment.min.js"></script> //moment js 
-  <script src="excellentexport.js" type='text/javascript'></script>
+  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js" type='text/javascript'></script>
+  <script src="javascript/moment.min.js"></script>
+  <script src="javascript/excellentexport.js" type='text/javascript'></script>
   <!--Packag & Stylesheet used in Clock picker-->
   <script src="http://weareoutman.github.io/clockpicker/dist/jquery-clockpicker.min.js" type='text/javascript'></script>
   <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/js/ripples.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/js/material.min.js"></script>
   <script type="text/javascript" src="http://t00rk.github.io/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
-
-<!--Style sheet for clock picker-->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/css/bootstrap-material-design.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/css/ripples.min.css">
-<link rel="stylesheet" href="http://t00rk.github.io/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css">
-<link href="http://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<style src="http://weareoutman.github.io/clockpicker/dist/jquery-clockpicker.min.css"></style>
-<!--Picker CSS additional-->
+  <!--Style sheet for clock picker-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/css/bootstrap-material-design.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/css/ripples.min.css">
+  <link rel="stylesheet" href="http://t00rk.github.io/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css">
+  <link href="http://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style src="http://weareoutman.github.io/clockpicker/dist/jquery-clockpicker.min.css"></style>
+  <!--Picker CSS additional-->
   <style>
     #stime,
     #etime {
@@ -67,13 +66,16 @@
       width: 300px;
       z-index: 10;
     }
-    .dtp div.dtp-date, .dtp div.dtp-time { 
+
+    .dtp div.dtp-date,
+    .dtp div.dtp-time {
       color: white;
       background-color: black;
     }
-    .dtp table.dtp-picker-days tr > td > a.selected {
-    background: black;
-}
+
+    .dtp table.dtp-picker-days tr>td>a.selected {
+      background: black;
+    }
   </style>
   <!--General style-->
   <style>
@@ -308,7 +310,7 @@
     #main {
       z-index: 0;
       top: 0px;
-      background-image: url("IMG_583265.jpg");
+      background-image: url("image/tableBackground.jpg");
       background-repeat: no-repeat;
       background-size: cover;
       width: 100%;
@@ -320,7 +322,7 @@
       overflow-x: hidden;
       margin: 0px;
       z-index: 0;
-      background-image: url("desktop-wallpaper-8.jpg");
+      background-image: url("image/mainPage.jpg");
       background-repeat: no-repeat;
       background-size: cover;
       width: 100%;
@@ -372,7 +374,9 @@
   <!--Loader effect-->
   <style>
     /*loader */
+
     /* Center the loader */
+
     @-webkit-keyframes pulse {
       50% {
         background: white;
@@ -428,18 +432,19 @@
       Input: the id of the object
       Effect: Scrolling to that object in the velocity of sin(x)
   -->
-    <script>
-      function scroll2(pos) {
-        var move = document.getElementById(pos).getBoundingClientRect().top;
-        var step = Math.abs(move);
-        var i = 0;
-        var moving = setInterval(function () { scrollBy(0, move * Math.sin(i * Math.PI / 48) / 30.54); i++; if (i > 48) { i = 0; clearInterval(moving); } }, 20.83);
-      }
-    </script>
+  <script>
+    function scroll2(pos) {
+      var move = document.getElementById(pos).getBoundingClientRect().top;
+      var step = Math.abs(move);
+      var i = 0;
+      var moving = setInterval(function () { scrollBy(0, move * Math.sin(i * Math.PI / 48) / 30.54); i++; if (i > 48) { i = 0; clearInterval(moving); } }, 20.83);
+    }
+  </script>
 </head>
 
 <body>
-  <div id="main" class="page"><!--Main page display-->
+  <div id="main" class="page">
+    <!--Main page display-->
     <div class="loading-pulse" id="loader">
     </div>
     <h1>Centre of System Informatic Engineering</h1>
@@ -448,7 +453,8 @@
       <a href="fitbitLogin.html" class="button" id="log">Login to Fitbit</a>
     </div>
     </br>
-    <div class="bdiv"><p>Start date:  </p>
+    <div class="bdiv">
+      <p>Start date: </p>
       <input type="text" id="stime" class="form-control" data-dtp="dtp_9OGvB">
       <script> /* Display clock picker for start date &time */
         $('#stime').bootstrapMaterialDatePicker({ format: 'YYYY/MM/DD HH:mm', weekStart: 1, cancelText: 'Cancel' });
@@ -456,7 +462,8 @@
         $('.dtp').css('left', $("#stime").offset().right);
       </script>
     </div>
-    <div class="bdiv"><p>End date: </p>  
+    <div class="bdiv">
+      <p>End date: </p>
       <input type="text" id="etime" class="form-control" data-dtp="dtp_9OGvB">
       <script>/* Display clock picker for end date&time */
         $('#etime').bootstrapMaterialDatePicker({ format: 'YYYY/MM/DD HH:mm', weekStart: 1, cancelText: 'Cancel' });
@@ -470,13 +477,15 @@
     <div class="bdiv">
       <h2 id="aca"></h2>
     </div>
-    <div class="bdiv"> <!--Export to csv-->
+    <div class="bdiv">
+      <!--Export to csv-->
       <a download="Step_Count.csv" href="#" onclick="return ExcellentExport.csv(this, 'summary');" id="sdown" class="button">Export Step Count to csv</a>
       <a download="Heart_Rate.csv" href="#" onclick="return ExcellentExport.csv(this, 'heart');" id="hdown" class="button">Export heart beat to csv</a>
       <a download="Sleep.csv" href="#" onclick="return ExcellentExport.csv(this, 'sleep');" id="sldown" class="button">Export Sleeping data to csv</a>
     </div>
   </div>
-  <div id="scroll"> <!--Scrolling side bar-->
+  <div id="scroll">
+    <!--Scrolling side bar-->
     <a class="scroll" onclick="scroll2('main')">
       <span class="top"></span>
       <span class="top"></span>
@@ -497,7 +506,7 @@
     var url = window.location.href;
     //getting the access token from url and cookie
     try {
-      var access_token = url.split("#")[1].split("=")[1].split("&")[0]; 
+      var access_token = url.split("#")[1].split("=")[1].split("&")[0];
       document.cookie = "access_token=" + access_token;
     }
     catch (err) {
@@ -507,8 +516,8 @@
     function search() {
       // setd: start date 
       // endDate: end date 
-      var setd=document.getElementById("stime").value[0]+document.getElementById("stime").value[1]+document.getElementById("stime").value[2]+document.getElementById("stime").value[3]+document.getElementById("stime").value[4]+document.getElementById("stime").value[5]+document.getElementById("stime").value[6]+document.getElementById("stime").value[7]+document.getElementById("stime").value[8]+document.getElementById("stime").value[9];
-      var endDate=document.getElementById("etime").value[0]+document.getElementById("etime").value[1]+document.getElementById("etime").value[2]+document.getElementById("etime").value[3]+document.getElementById("etime").value[4]+document.getElementById("etime").value[5]+document.getElementById("etime").value[6]+document.getElementById("etime").value[7]+document.getElementById("etime").value[8]+document.getElementById("etime").value[9];
+      var setd = document.getElementById("stime").value[0] + document.getElementById("stime").value[1] + document.getElementById("stime").value[2] + document.getElementById("stime").value[3] + document.getElementById("stime").value[4] + document.getElementById("stime").value[5] + document.getElementById("stime").value[6] + document.getElementById("stime").value[7] + document.getElementById("stime").value[8] + document.getElementById("stime").value[9];
+      var endDate = document.getElementById("etime").value[0] + document.getElementById("etime").value[1] + document.getElementById("etime").value[2] + document.getElementById("etime").value[3] + document.getElementById("etime").value[4] + document.getElementById("etime").value[5] + document.getElementById("etime").value[6] + document.getElementById("etime").value[7] + document.getElementById("etime").value[8] + document.getElementById("etime").value[9];
       document.getElementById("loader").style.display = "initial"; //Display loader
       var hrdata = []; //Heart rate data
       var hrtime = []; //Heart rate time
@@ -521,14 +530,14 @@
       // if true => specify the start date time of collecting and the end collecting time at the end date
       diffTime = moment(endDate).diff(moment(setd), 'days') + 1;
       if (diffTime != 1) {
-        var firstTime = document.getElementById("stime").value[11]+document.getElementById("stime").value[12]+document.getElementById("stime").value[13]+document.getElementById("stime").value[14]+document.getElementById("stime").value[15];
-        var lastTime = document.getElementById("etime").value[11]+document.getElementById("etime").value[12]+document.getElementById("etime").value[13]+document.getElementById("etime").value[14]+document.getElementById("etime").value[15]
+        var firstTime = document.getElementById("stime").value[11] + document.getElementById("stime").value[12] + document.getElementById("stime").value[13] + document.getElementById("stime").value[14] + document.getElementById("stime").value[15];
+        var lastTime = document.getElementById("etime").value[11] + document.getElementById("etime").value[12] + document.getElementById("etime").value[13] + document.getElementById("etime").value[14] + document.getElementById("etime").value[15]
         console.log(firstTime);
       }
-      
+
       for (var j = 0; j < diffTime; j++) { // Making several days time data
         // Container containing sending data from API
-        var data; 
+        var data;
         // Generate API call url for several days, as intraday data can only collect day by day
         if (firstTime.length > 0 && j == 0) {
           hlink = "https://api.fitbit.com/1/user/-/activities/heart/date/" + moment(setd).add(j, 'days').format("YYYY-MM-DD") + "/" + moment(setd).add(j, 'days').format("YYYY-MM-DD") + "/1min/time/" + firstTime[0] + firstTime[1] + "%3A" + firstTime[3] + firstTime[4] + "/23%3A59.json";
@@ -585,11 +594,11 @@
         url: "https://api.fitbit.com/1/user/-/profile.json",
         success: function (data, status, xhr) {
           // Changing the output csv file name [USER info]_[Start date]_[End date]_[Type of data]
-          document.getElementById('sdown').download = data['user']['aboutMe'] + "_" + setd.toString() + "_" + endDate.toString() + "_Step_Count.csv"; 
+          document.getElementById('sdown').download = data['user']['aboutMe'] + "_" + setd.toString() + "_" + endDate.toString() + "_Step_Count.csv";
           document.getElementById('hdown').download = data['user']['aboutMe'] + "_" + setd.toString() + "_" + endDate.toString() + "_Heart_rate.csv";
           document.getElementById('sldown').download = data['user']['aboutMe'] + "_" + moment(setd.toString()).format("YYYY-MM-DD") + "/" + moment(endDate.toString()).format("YYYY-MM-DD") + "_Sleep.csv";
           // Display the account your collecting
-          document.getElementById("aca").innerHTML = "Account: " + data['user']['aboutMe']; 
+          document.getElementById("aca").innerHTML = "Account: " + data['user']['aboutMe'];
         }
       });
       // Getting Sleep data
@@ -681,7 +690,7 @@
   </div>
   <!--Container for sleep data-->
   <div id="sltable" class="tabular">
-    </div>
+  </div>
   <!--Container for footer-->
   <div id="foot">
     <p>Table export is supported by
@@ -691,7 +700,5 @@
     </p>
     <p>Designed by: YU CHENG, HSU</p>
   </div>
-
 </body>
-
 </html>
