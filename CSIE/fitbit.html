@@ -23,25 +23,31 @@
 <head>
   <title>CSIE step count collection</title>
   <meta charset='utf-8' />
-  <script src="moment.min.js"></script>
-  <script src="excellentexport.js" type='text/javascript'></script>
-  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js" type='text/javascript'></script>
-  <script src="http://weareoutman.github.io/clockpicker/dist/jquery-clockpicker.min.js" type='text/javascript'></script>
-
+  <!--Packaged used 
+    jquery 1.11.1 and 3.2.1 on Internet
+    moment.js in local side
+    excellentexport.js in local side
+  -->
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/css/bootstrap-material-design.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/css/ripples.min.css">
-  <link rel="stylesheet" href="http://t00rk.github.io/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css">
-  <link href="http://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js" type='text/javascript'></script>   
+  <script src="moment.min.js"></script> //moment js 
+  <script src="excellentexport.js" type='text/javascript'></script>
+  <!--Packag & Stylesheet used in Clock picker-->
+  <script src="http://weareoutman.github.io/clockpicker/dist/jquery-clockpicker.min.js" type='text/javascript'></script>
   <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/js/ripples.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/js/material.min.js"></script>
   <script type="text/javascript" src="http://t00rk.github.io/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
 
-
+<!--Style sheet for clock picker-->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/css/bootstrap-material-design.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/css/ripples.min.css">
+<link rel="stylesheet" href="http://t00rk.github.io/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css">
+<link href="http://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style src="http://weareoutman.github.io/clockpicker/dist/jquery-clockpicker.min.css"></style>
+<!--Picker CSS additional-->
   <style>
     #stime,
     #etime {
@@ -69,15 +75,7 @@
     background: black;
 }
   </style>
-  <script>
-    function scroll2(pos) {
-      var move = document.getElementById(pos).getBoundingClientRect().top;
-      var step = Math.abs(move);
-      var i = 0;
-      var moving = setInterval(function () { scrollBy(0, move * Math.sin(i * Math.PI / 48) / 30.54); i++; if (i > 48) { i = 0; clearInterval(moving); } }, 20.83);
-    }
-  </script>g
-  <style src="http://weareoutman.github.io/clockpicker/dist/jquery-clockpicker.min.css"></style>
+  <!--General style-->
   <style>
     * {
       font-family: Arial;
@@ -167,7 +165,7 @@
       font-weight: bold;
     }
   </style>
-  <!--For scrolling  -->
+  <!--Scroling arrow effect -->
   <style>
     .scroll:visited {
       color: white;
@@ -305,6 +303,7 @@
       top: 75%;
     }
   </style>
+  <!--Main container style-->
   <style>
     #main {
       z-index: 0;
@@ -353,46 +352,7 @@
       background: rgba(1, 1, 1, 0.3);
     }
   </style>
-  <!--Calendar-->
-  <style>
-    input {
-      text-decoration: bold;
-      border: none;
-      background: none;
-      color: white;
-      font-size: 15px;
-    }
-
-    input[type=date] {
-      text-align: center;
-      font-family: Arial;
-    }
-
-    input[type="date"]::-webkit-calendar-picker-indicator {
-      color: white;
-      opacity: 1;
-      background: none;
-      z-index: 1;
-    }
-
-    ::-webkit-inner-spin-button {
-      background-image: none;
-      background: none;
-      opacity: 1;
-      color: white;
-    }
-
-    input[type=date]:focus {
-      font-family: Arial, Helvetica, sans-serif;
-      text-decoration: bold;
-      background: white;
-      text-align: center;
-      border: none;
-      color: black;
-      font-family: Arial;
-      font-size: 15px;
-    }
-  </style>
+  <!--Footer effect-->
   <style>
     #foot {
       column-count: 2;
@@ -409,11 +369,10 @@
       padding-right: 10px;
     }
   </style>
+  <!--Loader effect-->
   <style>
     /*loader */
-
     /* Center the loader */
-
     @-webkit-keyframes pulse {
       50% {
         background: white;
@@ -465,11 +424,22 @@
       animation-delay: 500ms;
     }
   </style>
+  <!--Script for scrolling effect
+      Input: the id of the object
+      Effect: Scrolling to that object in the velocity of sin(x)
+  -->
+    <script>
+      function scroll2(pos) {
+        var move = document.getElementById(pos).getBoundingClientRect().top;
+        var step = Math.abs(move);
+        var i = 0;
+        var moving = setInterval(function () { scrollBy(0, move * Math.sin(i * Math.PI / 48) / 30.54); i++; if (i > 48) { i = 0; clearInterval(moving); } }, 20.83);
+      }
+    </script>
 </head>
 
 <body>
-  <style type="text/javascript" src="http://t00rk.github.io/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css"></style>
-  <div id="main" class="page">
+  <div id="main" class="page"><!--Main page display-->
     <div class="loading-pulse" id="loader">
     </div>
     <h1>Centre of System Informatic Engineering</h1>
@@ -480,7 +450,7 @@
     </br>
     <div class="bdiv"><p>Start date:  </p>
       <input type="text" id="stime" class="form-control" data-dtp="dtp_9OGvB">
-      <script>
+      <script> /* Display clock picker for start date &time */
         $('#stime').bootstrapMaterialDatePicker({ format: 'YYYY/MM/DD HH:mm', weekStart: 1, cancelText: 'Cancel' });
         $('.dtp').css('top', $("#stime").offset().top);
         $('.dtp').css('left', $("#stime").offset().right);
@@ -488,7 +458,7 @@
     </div>
     <div class="bdiv"><p>End date: </p>  
       <input type="text" id="etime" class="form-control" data-dtp="dtp_9OGvB">
-      <script>
+      <script>/* Display clock picker for end date&time */
         $('#etime').bootstrapMaterialDatePicker({ format: 'YYYY/MM/DD HH:mm', weekStart: 1, cancelText: 'Cancel' });
         $('.dtp').css('top', $("#etime").offset().top);
         $('.dtp').css('left', $("#etime").offset().left);
@@ -500,13 +470,13 @@
     <div class="bdiv">
       <h2 id="aca"></h2>
     </div>
-    <div class="bdiv">
+    <div class="bdiv"> <!--Export to csv-->
       <a download="Step_Count.csv" href="#" onclick="return ExcellentExport.csv(this, 'summary');" id="sdown" class="button">Export Step Count to csv</a>
       <a download="Heart_Rate.csv" href="#" onclick="return ExcellentExport.csv(this, 'heart');" id="hdown" class="button">Export heart beat to csv</a>
       <a download="Sleep.csv" href="#" onclick="return ExcellentExport.csv(this, 'sleep');" id="sldown" class="button">Export Sleeping data to csv</a>
     </div>
   </div>
-  <div id="scroll">
+  <div id="scroll"> <!--Scrolling side bar-->
     <a class="scroll" onclick="scroll2('main')">
       <span class="top"></span>
       <span class="top"></span>
@@ -521,37 +491,45 @@
       <span class="down"></span>
     </a>
   </div>
-  <script>
-    
+  <!--Making API call to Fitbit-->
+  <script> 
     // get the url 
     var url = window.location.href;
-    //getting the access token from url
-    toaday = new Date();
+    //getting the access token from url and cookie
     try {
-      var access_token = url.split("#")[1].split("=")[1].split("&")[0];
+      var access_token = url.split("#")[1].split("=")[1].split("&")[0]; 
       document.cookie = "access_token=" + access_token;
     }
     catch (err) {
       access_token = document.cookie.split("=")[1];
     }
+
     function search() {
+      // setd: start date 
+      // endDate: end date 
       var setd=document.getElementById("stime").value[0]+document.getElementById("stime").value[1]+document.getElementById("stime").value[2]+document.getElementById("stime").value[3]+document.getElementById("stime").value[4]+document.getElementById("stime").value[5]+document.getElementById("stime").value[6]+document.getElementById("stime").value[7]+document.getElementById("stime").value[8]+document.getElementById("stime").value[9];
       var endDate=document.getElementById("etime").value[0]+document.getElementById("etime").value[1]+document.getElementById("etime").value[2]+document.getElementById("etime").value[3]+document.getElementById("etime").value[4]+document.getElementById("etime").value[5]+document.getElementById("etime").value[6]+document.getElementById("etime").value[7]+document.getElementById("etime").value[8]+document.getElementById("etime").value[9];
-      document.getElementById("loader").style.display = "initial";
-      var hrdata = [];
-      var hrtime = [];
-      var stdata = [];
-      var sttime = [];
+      document.getElementById("loader").style.display = "initial"; //Display loader
+      var hrdata = []; //Heart rate data
+      var hrtime = []; //Heart rate time
+      var stdata = []; //Step data
+      var sttime = []; //Step time
+      //Print the column name of step dat table and heart rate data table
       document.getElementById("stable").innerHTML = " <table style='width:100%' id='summary' align='center'><tr align='center'><caption>Step Count</caption><th>Start</th><th>End</th> <th>Steps</th><th>Cum_steps</th></tr></table>";
       document.getElementById("htable").innerHTML = "<table style='width:100%' id='heart' align='center'>< caption > Heart rate</caption > <tr align='center'><th>Time</th><th>Heart beats</th></tr></table > "
+      // Check if the start date and end date is the same date (Cuz different API call method)
+      // if true => specify the start date time of collecting and the end collecting time at the end date
       diffTime = moment(endDate).diff(moment(setd), 'days') + 1;
       if (diffTime != 1) {
         var firstTime = document.getElementById("stime").value[11]+document.getElementById("stime").value[12]+document.getElementById("stime").value[13]+document.getElementById("stime").value[14]+document.getElementById("stime").value[15];
         var lastTime = document.getElementById("etime").value[11]+document.getElementById("etime").value[12]+document.getElementById("etime").value[13]+document.getElementById("etime").value[14]+document.getElementById("etime").value[15]
         console.log(firstTime);
       }
+      
       for (var j = 0; j < diffTime; j++) { // Making several days time data
-        var data;
+        // Container containing sending data from API
+        var data; 
+        // Generate API call url for several days, as intraday data can only collect day by day
         if (firstTime.length > 0 && j == 0) {
           hlink = "https://api.fitbit.com/1/user/-/activities/heart/date/" + moment(setd).add(j, 'days').format("YYYY-MM-DD") + "/" + moment(setd).add(j, 'days').format("YYYY-MM-DD") + "/1min/time/" + firstTime[0] + firstTime[1] + "%3A" + firstTime[3] + firstTime[4] + "/23%3A59.json";
           slink = "https://api.fitbit.com/1/user/-/activities/steps/date/" + moment(setd).add(j, 'days').format("YYYY-MM-DD") + "/1d/15min/time/" + firstTime[0] + firstTime[1] + "%3A" + firstTime[3] + firstTime[4] + "/23%3A45.json";
@@ -575,8 +553,8 @@
             var obj = JSON.stringify(data);
             obj = JSON.parse(obj);
             console.log(obj);
-            hrdata.push(obj);
-            hrtime.push(obj['activities-heart'][0]['dateTime']);
+            hrdata.push(obj); // Store object to hrdata
+            hrtime.push(obj['activities-heart'][0]['dateTime']); // Store the date of this object (Cuz data may not send in chronological order, need to reorder it afterward)
           }
         });
         //Getting walking steps
@@ -591,13 +569,14 @@
             console.log(data);
             var obj = JSON.stringify(data);
             obj = JSON.parse(obj);
-            stdata.push(obj);
-            sttime.push(obj['activities-steps'][0]['dateTime']);
+            stdata.push(obj); // Store object to stdata
+            sttime.push(obj['activities-steps'][0]['dateTime']); // Store the date of this object (Cuz data may not send in chronological order, need to reorder it afterward)
             var pev = 0;
           }
         });
       }
-      //Getting profile
+      // Getting profile
+      // This request does not need to loop it several times
       $.ajax({
         type: 'GET',
         beforeSend: function (request) {
@@ -605,13 +584,16 @@
         },
         url: "https://api.fitbit.com/1/user/-/profile.json",
         success: function (data, status, xhr) {
-          document.getElementById('sdown').download = data['user']['aboutMe'] + "_" + setd.toString() + "_" + endDate.toString() + "_Step_Count.csv";
+          // Changing the output csv file name [USER info]_[Start date]_[End date]_[Type of data]
+          document.getElementById('sdown').download = data['user']['aboutMe'] + "_" + setd.toString() + "_" + endDate.toString() + "_Step_Count.csv"; 
           document.getElementById('hdown').download = data['user']['aboutMe'] + "_" + setd.toString() + "_" + endDate.toString() + "_Heart_rate.csv";
           document.getElementById('sldown').download = data['user']['aboutMe'] + "_" + moment(setd.toString()).format("YYYY-MM-DD") + "/" + moment(endDate.toString()).format("YYYY-MM-DD") + "_Sleep.csv";
-          document.getElementById("aca").innerHTML = "Account: " + data['user']['aboutMe'];
+          // Display the account your collecting
+          document.getElementById("aca").innerHTML = "Account: " + data['user']['aboutMe']; 
         }
       });
-      //Getting Sleep data
+      // Getting Sleep data
+      // This request does not need to loop it several times
       var data;
       $.ajax({
         type: 'GET',
@@ -641,14 +623,16 @@
           }
         }
       });
-      setTimeout(function () {
-        indexedTest = hrtime.map(function (e, i) { return { ind: i, val: e } });
-        // sort index/value couples, based on values
-        indexedTest.sort(function (x, y) { return x.val > y.val ? 1 : x.val == y.val ? 0 : -1 });
-        // make list keeping only indices
-        hrindices = indexedTest.map(function (e) { return e.ind });
-        for (var j = 0; j < hrindices.length; j++) {
 
+      //Setting timeout because we need to wait all return back to us
+      setTimeout(function () {
+        // sort index/value couples, based of hrtime in chronological order
+        indexedTest = hrtime.map(function (e, i) { return { ind: i, val: e } });
+        // make listfor the indices
+        indexedTest.sort(function (x, y) { return x.val > y.val ? 1 : x.val == y.val ? 0 : -1 });
+        hrindices = indexedTest.map(function (e) { return e.ind });
+        // Generating tables
+        for (var j = 0; j < hrindices.length; j++) {
           for (var i = 0; i < hrdata[hrindices[j]]['activities-heart-intraday']['dataset'].length; i++) {
             var table = document.getElementById("heart");
             var row = table.insertRow(table.rows.length);
@@ -659,11 +643,12 @@
             hb.innerHTML = hrdata[hrindices[j]]['activities-heart-intraday']['dataset'][i]['value'];
           }
         }
+        // sort index/value couples, based of hrtime in chronological order
         indexedTest = sttime.map(function (e, i) { return { ind: i, val: e } });
-        // sort index/value couples, based on values
-        indexedTest.sort(function (x, y) { return x.val > y.val ? 1 : x.val == y.val ? 0 : -1 });
         // make list keeping only indices
+        indexedTest.sort(function (x, y) { return x.val > y.val ? 1 : x.val == y.val ? 0 : -1 });
         stindices = indexedTest.map(function (e) { return e.ind });
+        // Generating tables
         for (var j = 0; j < stindices.length; j++) {
           var pev = 0;
           for (var i = 0; i < stdata[stindices[j]]['activities-steps-intraday']['dataset'].length; i++) {
@@ -686,15 +671,18 @@
         }
         document.getElementById("loader").style.display = "none";
       }, diffTime * 1300);
-
     }
   </script>
+  <!--Container for step data-->
   <div id="stable" class="tabular">
   </div>
+  <!--Container for hear rate data-->
   <div id="htable" class="tabular">
   </div>
+  <!--Container for sleep data-->
   <div id="sltable" class="tabular">
     </div>
+  <!--Container for footer-->
   <div id="foot">
     <p>Table export is supported by
       <a href="https://github.com/jmaister" class="cite">jmaister</a> excellentexport.js
