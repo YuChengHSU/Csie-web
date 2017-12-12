@@ -534,7 +534,8 @@
         var lastTime = document.getElementById("etime").value[11] + document.getElementById("etime").value[12] + document.getElementById("etime").value[13] + document.getElementById("etime").value[14] + document.getElementById("etime").value[15]
         console.log(firstTime);
       }
-
+        HrArrive=0; //Number of Hr data arrive already
+        StArrive=0; //Number of StepHr data arrive already
       for (var j = 0; j < diffTime; j++) { // Making several days time data
         // Container containing sending data from API
         var data;
@@ -564,6 +565,10 @@
             console.log(obj);
             hrdata.push(obj); // Store object to hrdata
             hrtime.push(obj['activities-heart'][0]['dateTime']); // Store the date of this object (Cuz data may not send in chronological order, need to reorder it afterward)
+            HrArrive++; // One more Hr data arive
+            if(HrArrive==diffTime&&StArrive==diffTime){ //If all HR and Step data arrive, we can print table
+              printTable();
+            }
           }
         });
         //Getting walking steps
@@ -580,7 +585,10 @@
             obj = JSON.parse(obj);
             stdata.push(obj); // Store object to stdata
             sttime.push(obj['activities-steps'][0]['dateTime']); // Store the date of this object (Cuz data may not send in chronological order, need to reorder it afterward)
-            var pev = 0;
+            StArrive++; // One more Step data arive
+            if(HrArrive==diffTime&&StArrive==diffTime){ //If all HR and Step data arrive, we can print table
+              printTable();
+            }
           }
         });
       }
@@ -633,8 +641,7 @@
         }
       });
 
-      //Setting timeout because we need to wait all return back to us
-      setTimeout(function () {
+      function printTable() { //Print HR and step data table
         // sort index/value couples, based of hrtime in chronological order
         indexedTest = hrtime.map(function (e, i) { return { ind: i, val: e } });
         // make listfor the indices
@@ -671,7 +678,13 @@
             cumstep.id = "cumstep" + i;
             steps.id = "steps" + i;
             st.innerHTML = stdata[stindices[j]]['activities-steps'][0]['dateTime'] + " " + stdata[stindices[j]]['activities-steps-intraday']['dataset'][i]['time'];
-            if (i + 1 < stdata[stindices[j]]['activities-steps-intraday']['dataset'].length) { ed.innerHTML = stdata[stindices[j]]['activities-steps'][0]['dateTime'] + " " + stdata[stindices[j]]['activities-steps-intraday']['dataset'][i + 1]['time']; }
+            if (i + 1 < stdata[stindices[j]]['activities-steps-intraday']['dataset'].length) {
+            ed.innerHTML = stdata[stindices[j]]['activities-steps'][0]['dateTime'] + " " + stdata[stindices[j]]['activities-steps-intraday']['dataset'][i + 1]['time']; }
+            else if(j!=(stindices.length-1)){
+            ed.innerHTML = stdata[stindices[j]]['activities-steps'][0]['dateTime'] + " " + "24:00:00"; } 
+            else{
+              ed.innerHTML = stdata[stindices[j]]['activities-steps'][0]['dateTime'] + " " + lastTime +":00"; 
+            }
             steps.innerHTML = stdata[stindices[j]]['activities-steps-intraday']['dataset'][i]['value'];
             cumstep.innerHTML = pev + stdata[stindices[j]]['activities-steps-intraday']['dataset'][i]['value'];
             pev = pev + stdata[stindices[j]]['activities-steps-intraday']['dataset'][i]['value'];
@@ -679,8 +692,9 @@
           }
         }
         document.getElementById("loader").style.display = "none";
-      }, diffTime * 1300);
+      }
     }
+    
   </script>
   <!--Container for step data-->
   <div id="stable" class="tabular">
@@ -701,4 +715,5 @@
     <p>Designed by: YU CHENG, HSU</p>
   </div>
 </body>
+
 </html>
