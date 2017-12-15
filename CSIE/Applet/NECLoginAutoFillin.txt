@@ -1,0 +1,1 @@
+javascript:function test(){ var ac="seemtest"+window.location.href.slice(-2)+"@gmail.com"; var pw="fitbit"+window.location.href.slice(-2); document.getElementById("loginForm").elements[7].value=ac; document.getElementById("loginForm").elements[8].value="seemtest"; }; test();
