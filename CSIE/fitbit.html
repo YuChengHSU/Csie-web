@@ -62,6 +62,9 @@
       top: 50px;
       position: fixed;
       float: left;
+      top:10%;
+      left:40%;
+      right:50%;
       height: 520px;
       width: 300px;
       z-index: 10;
@@ -459,8 +462,6 @@
       <input type="text" id="stime" class="form-control" data-dtp="dtp_9OGvB">
       <script> /* Display clock picker for start date &time */
         $('#stime').bootstrapMaterialDatePicker({ format: 'YYYY/MM/DD HH:mm', weekStart: 1, cancelText: 'Cancel' });
-        $('.dtp').css('top', $("#stime").offset().top);
-        $('.dtp').css('left', $("#stime").offset().right);
       </script>
     </div>
     <div class="bdiv">
@@ -468,8 +469,6 @@
       <input type="text" id="etime" class="form-control" data-dtp="dtp_9OGvB">
       <script>/* Display clock picker for end date&time */
         $('#etime').bootstrapMaterialDatePicker({ format: 'YYYY/MM/DD HH:mm', weekStart: 1, cancelText: 'Cancel' });
-        $('.dtp').css('top', $("#etime").offset().top);
-        $('.dtp').css('left', $("#etime").offset().left);
       </script>
     </div>
     <div class="bdiv">
